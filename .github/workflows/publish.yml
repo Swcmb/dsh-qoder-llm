@@ -1,0 +1,36 @@
+name: publish
+
+on:
+  workflow_dispatch:
+    inputs:
+      dry-run:
+        description: Run npm publish --dry-run
+        type: boolean
+        default: false
+  release:
+    types: [published]
+
+permissions:
+  contents: read
+  id-token: write
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          registry-url: https://registry.npmjs.org
+
+      - name: Publish to npm
+        run: |
+          if [ "${{ inputs.dry-run }}" = "true" ]; then
+            npm publish --access public --dry-run
+          else
+            npm publish --access public --provenance
+          fi
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
