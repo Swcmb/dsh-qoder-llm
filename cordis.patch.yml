@@ -1,0 +1,12 @@
+# dsh-qoder-llm bundle patch: mount the native provider adapter.
+# The provider is registered at runtime through ctx.llm.registerAdapter('qoder'),
+# so no llm-pi-ai provider row is needed in the profile patch.
+- insert:
+    - id: qoder-llm
+      name: 'dsh-qoder-llm'
+      config:
+        authMode: cli
+        timeoutMs: 600000
+        models:
+          - Qwen3.8-Flash
+          - DeepSeek-Flash
