@@ -1,0 +1,61 @@
+{
+  "name": "dsh-qoder-llm",
+  "version": "0.1.0",
+  "description": "Qoder models as a native DeepSeek Harness (DSH) LLM provider, with DSH-native tool calls, streaming and image input.",
+  "type": "module",
+  "license": "GPL-3.0-or-later",
+  "author": "Swcmb",
+  "keywords": [
+    "deepseek-harness",
+    "dsh",
+    "dsh-plugin",
+    "qoder",
+    "llm",
+    "agent-sdk"
+  ],
+  "homepage": "https://github.com/Swcmb/dsh-qoder-llm#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Swcmb/dsh-qoder-llm.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Swcmb/dsh-qoder-llm/issues"
+  },
+  "main": "lib/index.js",
+  "exports": {
+    ".": "./lib/index.js",
+    "./client": "./lib/client.js",
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "lib/index.js",
+    "lib/adapter.js",
+    "lib/session.js",
+    "lib/client.js",
+    "bin/login.mjs",
+    "bin/status.mjs",
+    "cordis.patch.yml"
+  ],
+  "engines": {
+    "node": ">=18"
+  },
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    },
+    "client": {
+      "inject": [
+        "@deepseek-ai/dsh-client-locale",
+        "@deepseek-ai/dsh-client-ui-settings"
+      ],
+      "platform": "web"
+    }
+  },
+  "dependencies": {
+    "@deepseek-ai/schemastery": "3.18.5",
+    "@qoder-ai/qoder-agent-sdk": "^1.0.53"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}
